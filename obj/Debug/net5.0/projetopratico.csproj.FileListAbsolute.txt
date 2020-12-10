@@ -1,0 +1,16 @@
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.csprojAssemblyReference.cache
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.AssemblyInfoInputs.cache
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.AssemblyInfo.cs
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.csproj.CoreCompileInputs.cache
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\bin\Debug\net5.0\projetopratico.exe
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\bin\Debug\net5.0\projetopratico.deps.json
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\bin\Debug\net5.0\projetopratico.runtimeconfig.json
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\bin\Debug\net5.0\projetopratico.runtimeconfig.dev.json
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\bin\Debug\net5.0\projetopratico.dll
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\bin\Debug\net5.0\ref\projetopratico.dll
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\bin\Debug\net5.0\projetopratico.pdb
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.dll
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\ref\projetopratico.dll
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.pdb
+C:\Users\rubem\OneDrive\Documentos\codes\C#\projetopratico\obj\Debug\net5.0\projetopratico.genruntimeconfig.cache
