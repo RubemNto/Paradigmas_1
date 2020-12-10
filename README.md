@@ -1,0 +1,2 @@
+# Paradigmas_1
+ 
