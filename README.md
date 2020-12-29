@@ -4,5 +4,4 @@
 </p><br>
 <h1>Alunos:</h1>
 <h2>19744 - Rubem Fridolino Christ Neto</h2>
-<h3>16068 - Nicholas Zimmermann Sad0</hs>
-
+16068 - Nicholas Zimmermann Sado
