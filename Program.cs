@@ -41,6 +41,10 @@ namespace projetopratico
 
             //Realização das provas
 
+            //AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+
+            Console.WriteLine("Hello world!");
+
             //new Prova(participants,3).results();  
         }
     }
