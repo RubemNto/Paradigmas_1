@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rubem\\OneDrive\\Documentos\\codes\\C#\\projetopratico\\projetopratico.csproj",
+      "projectUniqueName": "C:\\Users\\rubem\\OneDrive\\Documentos\\codes\\C#\\Paradigmas_1\\projetopratico.csproj",
       "projectName": "projetopratico",
-      "projectPath": "C:\\Users\\rubem\\OneDrive\\Documentos\\codes\\C#\\projetopratico\\projetopratico.csproj",
+      "projectPath": "C:\\Users\\rubem\\OneDrive\\Documentos\\codes\\C#\\Paradigmas_1\\projetopratico.csproj",
       "packagesPath": "C:\\Users\\rubem\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rubem\\OneDrive\\Documentos\\codes\\C#\\projetopratico\\obj\\",
+      "outputPath": "C:\\Users\\rubem\\OneDrive\\Documentos\\codes\\C#\\Paradigmas_1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
