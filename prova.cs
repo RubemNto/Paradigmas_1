@@ -9,7 +9,10 @@ class prova
     string[] dadosEtapas;
     string[] dadosConcorrentes;
     List<concorrente> listaConcorrentes = new List<concorrente>();
+    List<concorrente> listaConcorrentesValidos = new List<concorrente>();
+    List<concorrente> podio = new List<concorrente>();
     List<etapa> listaEtapas = new List<etapa>();
+
     void lerFicheiros(string enderecoDadosProva,string enderecoDadosEtapas,string enderecoDadosConcorrentes)
     {
         if(File.Exists(enderecoDadosConcorrentes))
@@ -22,6 +25,43 @@ class prova
             Console.WriteLine("One or more files don't exist");
             System.Environment.Exit(0);
         }        
+    }
+
+    void mostrarTempoConcorrentesValidos()
+    {
+        List<float> tempos = new List<float>();
+
+    }
+
+    void tempoProvaConcorrentes()
+    {
+        foreach (string line in dadosProva)
+        {
+            string[] dadoLinha = line.Split(" ");
+            for (int i = 0; i < listaConcorrentes.Count; i++)
+            {
+                if(int.Parse(dadoLinha[0]) == listaConcorrentes[i].numero)
+                {
+                    listaConcorrentes[i].tempoDeProva += float.Parse(dadoLinha[3]);
+                }
+            }
+        }
+    }
+
+    void verificarConcorrentesValidos()
+    {
+        foreach (string line in dadosProva)
+        {
+            string[] dadoLinha = line.Split(" ");
+            for (int i = 0; i < listaConcorrentes.Count; i++)
+            {
+                if(int.Parse(dadoLinha[0]) == listaConcorrentes[i].numero)
+                {
+                    listaConcorrentes[i].verificarClassificado(dadoLinha[0],dadoLinha[1],listaEtapas.Count);
+                    break;
+                }
+            }
+        }
     }
 
     void criarConcorrentes()
@@ -64,14 +104,36 @@ class prova
             if(conc.desclassificado == false)
             {
                 counter++;
+                listaConcorrentesValidos.Add(conc);
             }
         }
+        Console.WriteLine("Número de concorrentes com provas válidas: " + counter.ToString());
         return counter;
     }
 
 
     void Tabela()
-    {
+        {
 
-    }    
+            // VAI TER QUE SER UM FOR OU DO WHILE 
+
+            /*  
+             *  
+             Console.WriteLine(" _____________________________________________________________________________________________________________");
+             Console.WriteLine("|    Posição     |" + "    Número    | " + "    Nome      |" + "    Carro    |" + "  Tempo da Prova   |" + "   Di. Ant.   |" + "  Di.Ldr.   |");
+
+             for(int i = 0; i <= concorrents.Length() / numConcorrentes / listaConcorrentesOrdenada.count; i++){
+
+                Console.WriteLine("|      i+1      | " + "listaConcorrentesOrdenada[i].num | " + "listaConcorrentesOrdenada[i].nome| " + "listaConcorrentesOrdenada[i].carro   | " + "listaConcorrentesOrdenada[i].tempoProva| " + "listaConcorrentesOrdenada[i-1].tempoProva - listaConcorrentesOrdenada[i].tempoProva   | " + "listaConcorrentesOrdenada[0].tempoProva - listaConcorrentesOrdenada[i].tempoProva   |");
+                Console.WriteLine(" _____________________________________________________________________________________________________________");
+            }
+             */
+            Console.WriteLine(" _____________________________________________________________________________________________________________");
+            Console.WriteLine("|    Posição     |" + "    Número    | " + "    Nome      |" + "    Carro    |" + "  Tempo da Prova   |" + "   Di. Ant.   |" + "  Di.Ldr.   |");
+            Console.WriteLine(" _____________________________________________________________________________________________________________");
+            Console.WriteLine("|        1       | " + "    x        | " + "    Nome      | " + "    Carro   | " + "       xy:zw      | " + "      x.x    | " + "    y.y    |");
+            Console.WriteLine(" _____________________________________________________________________________________________________________");
+            Console.WriteLine("|        2       | " + "    x        | " + "    Nome      | " + "    Carro   | " + "       xy:zw      | " + "      x.x    | " + "    y.y    |");
+            Console.WriteLine(" _____________________________________________________________________________________________________________");
+        }  
 }
