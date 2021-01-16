@@ -1,9 +1,9 @@
 1) ler ficheiros
-    numero nome carro -> concorrentes
-    etapas distancia -> etapas
+    numero nome carro -> concorrentes x
+    etapas distancia -> etapas x
     dados da corrida -> prova
-2) mostrar num dos concorrentes
-3) mostrar num de concorrentes com provas validas
+2) mostrar num dos concorrentes x
+3) mostrar num de concorrentes com provas validas x
 4) tempo de prova de concorrente com prova valida
 5) calculo de media de tempo por etapa de provas validas
 6) carro mais rapido para prova valida

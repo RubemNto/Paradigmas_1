@@ -9,12 +9,12 @@ class concorrente
     public string nome;
     public string carro;
     float velocidadeMedia;
-    bool desclassificado;
+    public bool desclassificado;
     float tempoDeProva;
     Dictionary<etapa,float> etapaMaisLenta = new Dictionary<etapa, float>();
 
     public concorrente()
     {
-        
+
     }
 }

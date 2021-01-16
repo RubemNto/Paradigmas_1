@@ -12,12 +12,15 @@ class prova
     List<etapa> listaEtapas = new List<etapa>();
     void lerFicheiros(string enderecoDadosProva,string enderecoDadosEtapas,string enderecoDadosConcorrentes)
     {
-        string leitura= " ";
         if(File.Exists(enderecoDadosConcorrentes))
         {
-            //leitura = File.ReadAllText(enderecoDadosConcorrentes);
-            dadosConcorrentes = File.ReadAllLines(enderecoDadosConcorrentes);//leitura.Split(" ");
+            dadosConcorrentes = File.ReadAllLines(enderecoDadosConcorrentes);
             dadosEtapas = File.ReadAllLines(enderecoDadosEtapas);
+            dadosProva = File.ReadAllLines(enderecoDadosProva);
+        }else
+        {
+            Console.WriteLine("One or more files don't exist");
+            System.Environment.Exit(0);
         }        
     }
 
@@ -33,15 +36,39 @@ class prova
             listaConcorrentes.Add(novoConcorrente);            
         }
     }
-
     void criarEtapas()
     {
         foreach (string line in dadosEtapas)
         {
             etapa novaEtapa = new etapa();
+            string[] dadoLinha = line.Split(" ");
+            novaEtapa.pontos[0] = dadoLinha[0];
+            novaEtapa.pontos[1] = dadoLinha[1];
+            novaEtapa.distancia = float.Parse(dadoLinha[2]);
+            listaEtapas.Add(novaEtapa);
         }
-
     }
+    void mostrarNumConcorrentes()
+    {
+        foreach (concorrente conc in listaConcorrentes)
+        {
+            Console.WriteLine(conc.nome + "-->" + conc.numero);
+        }
+    }
+    
+    int numConcorrentesProvasValidas()
+    {
+        int counter = 0;
+        foreach (concorrente conc in listaConcorrentes)
+        {
+            if(conc.desclassificado == false)
+            {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
 
     void Tabela()
     {
