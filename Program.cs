@@ -11,19 +11,9 @@ namespace projetopratico
         // /*static readonly*/ string textFile;// = @"C:\Users\rubem\OneDrive\Documentos\codes\C#\PARADIGMAS_1\information.txt";
         static void Main(String[] args)
         {
-            string textFile;
-            Console.WriteLine("File adress");
-            textFile = Console.ReadLine();
-            
-
-            if(File.Exists(textFile))
-            {                
-                Prova p1 = new Prova(textFile);                                
-            }else
-            {
-                Console.WriteLine("File does not exist!\nPress any key to continue");
-                Console.ReadKey();
-            }
+            //
+            //ler o ficheiro
+            //organizar o ficheiro
 
             //Configurar os participantes para a prova
             // int randomNum = new Random().Next(3,10);
@@ -43,7 +33,7 @@ namespace projetopratico
 
             //AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 
-            Console.WriteLine("Hello world!");
+            //Console.WriteLine("Hello world!");
 
             //new Prova(participants,3).results();  
         }

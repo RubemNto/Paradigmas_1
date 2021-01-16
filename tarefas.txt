@@ -1,0 +1,15 @@
+1) ler ficheiros
+    numero nome carro
+    etapas distancia
+    dados da corrida
+2) mostrar num dos concorrentes
+3) mostrar num de concorrentes com provas validas
+4) tempo de prova de concorrente com prova valida
+5) calculo de media de tempo por etapa de provas validas
+6) carro mais rapido para prova valida
+7) carro mais lento para prova valida
+8) tempo da etapa mais lenta do concorrente mais rapido
+9) tempo minimo para efetuar a prova classificaddo ou nao
+10) listar velocidade media de cada concorrente valido
+11) gerar tabela
+    pos/num/nome/carro/tempo de prova/diferenca anterior/diferenca lider

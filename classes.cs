@@ -81,11 +81,6 @@ class Prova
         }
         File.WriteAllText(endereco,final);
     }
-    // void dividirDados(string[] _dados)
-    // {
-        
-
-    // }
 }
 
 class Concorrente
