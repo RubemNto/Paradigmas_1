@@ -8,9 +8,11 @@ class concorrente
     public int numero = 0;
     public string nome;
     public string carro;
-    float velocidadeMedia;
-    public bool desclassificado = false;
+    public float velocidadeMedia;
+    public float distanciaPercorrida;
     public float tempoDeProva;
+    public bool desclassificado = false;
+    
     Dictionary<etapa,float> etapaMaisLenta = new Dictionary<etapa, float>();
 
     public concorrente()

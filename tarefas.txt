@@ -4,12 +4,12 @@
     dados da corrida -> prova x
 2) mostrar num dos concorrentes x
 3) mostrar num de concorrentes com provas validas x
-4) tempo de prova de concorrente com prova valida/descrescente
-5) calculo de media de tempo por etapa de provas validas
-6) carro mais rapido para prova valida
-7) carro mais lento para prova valida
-8) tempo da etapa mais lenta do concorrente mais rapido
-9) tempo minimo para efetuar a prova classificaddo ou nao
+4) tempo de prova de concorrente com prova valida/descrescente x
+5) calculo de media de tempo por etapa de provas validas x
+6) carro mais rapido para prova valida x
+7) carro mais lento para prova valida x
+8) tempo da etapa mais lenta do concorrente mais rapido nao desclassificado x
+9) tempo minimo para efetuar a prova classificado ou nao x
 10) listar velocidade media de cada concorrente valido
 11) gerar tabela
     pos/num/nome/carro/tempo de prova/diferenca anterior/diferenca lider
