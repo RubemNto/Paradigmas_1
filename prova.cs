@@ -328,7 +328,7 @@ class prova
 
                 }else
                 {
-                    Console.WriteLine("|\t"+"{0}"+"\t\t|\t" + "{1}"+"\t\t|\t" + "{2}"+"\t\t|\t" + "{3}"+"\t\t|\t" + "{4}"+"\t\t\t|\t" + "{5}"+"\t\t\t|\t" + "{6}"+"\t\t|\t",podio[i].pos,podio[i].numero,podio[i].nome,podio[i].carro,podio[i].tempoDeProva,podio[i].tempoDeProva,podio[i].tempoDeProva);
+                    Console.WriteLine("|\t"+"{0}"+"\t\t|\t" + "{1}"+"\t\t|\t" + "{2}"+"\t\t|\t" + "{3}"+"\t\t|\t" + "{4}"+"\t\t\t|\t" + "{5}"+"\t\t\t|\t" + "{6}"+"\t\t|\t",podio[i].pos,podio[i].numero,podio[i].nome,podio[i].carro,podio[i].tempoDeProva,0,0);
                     Console.WriteLine(" ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 }
             }
