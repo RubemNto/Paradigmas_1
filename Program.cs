@@ -10,48 +10,82 @@ namespace projetopratico
     {
         static void Main(String[] args)
         {
-            // string et1 = "E1";
-            // string et12 = "E12";
-            // string[] d1 = et1.Split("E");
-            // string[] d12 = et12.Split("E");
-            // Console.WriteLine(d1[1]);
-            // Console.WriteLine();
-            // Console.WriteLine(d12[1]);
-            // Create a dictionary with string key and Int16 value pair  
-            // Dictionary<string, Int16> AuthorList = new Dictionary<string, Int16>();  
-            // AuthorList.Add("Mahesh Chand", 35);  
-            // AuthorList.Add("Mike Gold", 25);  
-            // AuthorList.Add("Praveen Kumar", 29);  
-            // AuthorList.Add("Raj Beniwal", 21);  
-            // AuthorList.Add("Dinesh Beniwal", 84);   
-        
-            // // Sorted by Value  
-        
-            // Console.WriteLine("Sorted by Value");  
-            // Console.WriteLine("=============");  
-            // foreach (KeyValuePair<string, Int16> author in AuthorList.OrderByDescending(key => key.Value))  
-            // {  
-            //     Console.WriteLine("Key: {0}, Value: {1}", author.Key, author.Value);  
-            // }
-        }  
-        //     List<float> num = new List<float>();
-        //     num.Add(10);num.Add(1);num.Add(25);
-        //     foreach (float item in num)
-        //     {
-        //         Console.WriteLine(item);
-        //     }
-        //     num.Sort();
-        //         Console.WriteLine();
-        //     foreach (float item in num)
-        //     {
-        //         Console.WriteLine(item);
-        //     }
-        //     num.Reverse();
-        //         Console.WriteLine();
-        //     foreach (float item in num)
-        //     {
-        //         Console.WriteLine(item);
-        //     }
-        // }
+            prova p1 = new prova();
+            int input = ' ';
+            p1.lerFicheiros(@"C:\Users\rubem\OneDrive\Documentos\codes\C#\Paradigmas_1\dadosDaProva.txt",@"C:\Users\rubem\OneDrive\Documentos\codes\C#\Paradigmas_1\dadosEtapas.txt",@"C:\Users\rubem\OneDrive\Documentos\codes\C#\Paradigmas_1\dadosConcorrentes.txt");
+            do{
+            Console.WriteLine("1 - Mostrar Número dos concorrentes");
+            Console.WriteLine("2 - Mostrar Número de concorrentes com provas válidas");
+            Console.WriteLine("3 - Mostrar tempo concorrentes válidos");
+            Console.WriteLine("4 - Mostrar tempo medio das etapas");
+            Console.WriteLine("5 - Mostrar carro mais lento e mais rapido");
+            Console.WriteLine("6 - Etapa mais lenta do concorrente mais rapido");
+            Console.WriteLine("7 - Tempo minimo para a prova");
+            Console.WriteLine("8 - Escrever velocidade dos concorrentes");
+            Console.WriteLine("9 - Mostrar tabela");
+            Console.WriteLine("0 - Quit");
+
+            Console.Write("Input: ");
+            input = int.Parse(Console.ReadLine());
+
+            switch (input)
+            {
+                case 1:
+                    p1.mostrarNumConcorrentes();//mostrar os números concorrentes
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 2:
+                    p1.numConcorrentesProvasValidas();//conta o numero de concorrentes com provas válidas
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 3:
+                    p1.mostrarTempoConcorrentesValidos();//mostrar tempo concorrentes válidos
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 4:
+                    p1.calcularTempoMedioEtapa();//tempo medio das etapas
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 5:
+                    p1.carroMaisRapidoLento();//carro mais lento e mais rapido
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 6:
+                    p1.etapaLentaConcorrenteRapido();//etapa mais lenta do concorrente mais rapido
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 7:
+                    p1.tempoMinimoParaProva();//tempo minimo para a prova
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 8:
+                    p1.escreverVelocidades();//escrever velocidade dos concorrentes
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+                case 9:
+                    p1.Tabela();
+                    Console.Write("Press any  KEY to continue...");
+                    Console.ReadKey();
+                    System.Console.Clear();
+                    break;
+            }
+            }while(input != 0);
+        }
     }
 }

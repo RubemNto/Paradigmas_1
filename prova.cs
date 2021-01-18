@@ -8,41 +8,82 @@ class prova
 {
     string[] dadosProva;
     string[] dadosEtapas;
-    string[] dadosConcorrentes;
-    List<concorrente> listaConcorrentes = new List<concorrente>();
-    List<concorrente> listaConcorrentesValidos = new List<concorrente>();
-    List<concorrente> podio = new List<concorrente>();
-    List<etapa> listaEtapas = new List<etapa>();
+    string[] dadosConcorrentes;    
+    public    List<concorrente> listaConcorrentes = new List<concorrente>();// existem concorrentes validos e n validos
+    public    List<concorrente> listaConcorrentesValidos = new List<concorrente>();// existem apenas concorrente validos
+    public    List<concorrente> ListaConcorrenteInvalido = new List<concorrente>();//
+    public     List<concorrente> podio = new List<concorrente>();
+    public     List<etapa> listaEtapas = new List<etapa>();
 
     public void lerFicheiros(string enderecoDadosProva,string enderecoDadosEtapas,string enderecoDadosConcorrentes)
     {
-        if(File.Exists(enderecoDadosConcorrentes))
+        if(File.Exists(enderecoDadosConcorrentes)&&File.Exists(enderecoDadosEtapas)&&File.Exists(enderecoDadosProva))
         {
             dadosConcorrentes = File.ReadAllLines(enderecoDadosConcorrentes);
             dadosEtapas = File.ReadAllLines(enderecoDadosEtapas);
             dadosProva = File.ReadAllLines(enderecoDadosProva);
+            criarEtapas();
+            criarConcorrentes();
+            verificarConcorrentesValidos();
+            tempoProvaConcorrentes();
+
         }else
         {
             Console.WriteLine("One or more files don't exist");
             System.Environment.Exit(0);
         }        
     }
-    public void escreverVelocidades()
+
+    public void registrarPodio()
     {
+        Dictionary<concorrente,float> dadoPodio = new Dictionary<concorrente,float>();
         foreach (concorrente conc in listaConcorrentesValidos)
         {
-            Console.WriteLine(conc.nome+" --> "+conc.velocidadeMedia);
+            dadoPodio.Add(conc,conc.tempoDeProva);
+        }
+        dadoPodio.OrderBy(key => key.Value);
+        int pos = 0;
+        foreach (KeyValuePair<concorrente,float> pair in dadoPodio)
+        {
+            pos += 1;
+            pair.Key.pos = pos;
+            podio.Add(pair.Key);           
+        }
+    }
+    public void escreverVelocidades()
+    {
+        calcularVelocidadeConcorrentes();
+        Dictionary<concorrente,float> dadoVelocidade = new Dictionary<concorrente, float>();
+        foreach (concorrente conc in listaConcorrentesValidos)
+        {
+            dadoVelocidade.Add(conc,conc.velocidadeMedia);
+        }
+        dadoVelocidade.OrderByDescending(key=>key.Value);
+        foreach (KeyValuePair<concorrente,float> temp in dadoVelocidade)
+        {
+            Console.WriteLine(temp.Key.nome + " --> "+temp.Value+"km/ms");
         }
     }
     public void tempoMinimoParaProva()
     {
-        List<float> tempoMinimo = new List<float>();
-        foreach (concorrente conc in listaConcorrentes)
+        float tempoMinimo = 0;
+        string[] linhasProva = dadosProva;
+        
+        foreach (etapa et in listaEtapas)
         {
-            tempoMinimo.Add(conc.tempoDeProva);
+            List<float> tempos = new List<float>();
+            foreach (string ln in linhasProva)
+            {
+                string[] dado = ln.Split(" ");
+                if(et.pontos[0] == dado[1] && et.pontos[1] == dado[2])
+                {
+                    tempos.Add(float.Parse(dado[3]));                    
+                }
+            }
+            tempos.Sort();
+            tempoMinimo += tempos[0];            
         }
-        tempoMinimo.Sort();
-        Console.WriteLine("Tempo mínimo para finalizar prova: " + tempoMinimo[0].ToString()+"ms");
+        Console.WriteLine("Tempo mínimo para finalizar prova: " + tempoMinimo.ToString()+"ms");
     }
     public void etapaLentaConcorrenteRapido()
     {
@@ -110,13 +151,23 @@ class prova
         {
             dadoVelocidade.Add(conc,conc.tempoDeProva);            
         }
+        dadoVelocidade.OrderByDescending(key => key.Value);        
+        int counter = 1;
         foreach (KeyValuePair<concorrente,float> pair in dadoVelocidade.OrderByDescending(key => key.Value))
         {
-            Console.WriteLine(pair.Key.carro + " --> " + pair.Value + "ms");
+            if(counter == 1)
+            {
+                Console.WriteLine("Carro mais lento: " +pair.Key.carro + " --> " + pair.Value + "ms");
+            }else if(counter == dadoVelocidade.Count)
+            {
+                Console.WriteLine("Carro mais rápido: " + pair.Key.carro + " --> " + pair.Value + "ms");
+            }
+            counter++;
         }
     }
     public void mostrarTempoConcorrentesValidos()
     {
+        tempoProvaConcorrentes();
         //descrescente
         Dictionary<concorrente,float> tempos = new Dictionary<concorrente, float>();
         foreach (concorrente item in listaConcorrentesValidos)
@@ -126,7 +177,7 @@ class prova
         
         foreach (KeyValuePair<concorrente,float> item in tempos.OrderByDescending(key => key.Value))
         {
-            Console.WriteLine(item.Key.ToString() + "-->" + item.Value.ToString());
+            Console.WriteLine(item.Key.nome + "-->" + item.Value.ToString()+"ms");
         }
     }
     public void tempoProvaConcorrentes()
@@ -152,12 +203,28 @@ class prova
             {
                 if(int.Parse(dadoLinha[0]) == listaConcorrentes[i].numero)
                 {
-                    listaConcorrentes[i].verificarClassificado(dadoLinha[0],dadoLinha[1],listaEtapas.Count);
+                    listaConcorrentes[i].verificarClassificado(dadoLinha[1],dadoLinha[2],listaEtapas.Count);
                     break;
                 }
             }
         }
+        concorrentesValidos();
     }
+
+    private void concorrentesValidos()
+    {
+        foreach (concorrente conc in listaConcorrentes)
+        {
+            if(conc.desclassificado == true)
+            {
+                ListaConcorrenteInvalido.Add(conc);
+            }else
+            {
+                listaConcorrentesValidos.Add(conc);
+            }
+        }
+    }
+
     public void criarConcorrentes()
     {
         foreach (string line in dadosConcorrentes)
@@ -187,20 +254,28 @@ class prova
             et.verificarIndice(listaEtapas.Count);
         }
 
-    }
+    }    
     public void calcularTempoMedioEtapa()
     {
         string[] dadoLinhas = dadosProva;
 
         foreach (string line in dadoLinhas)
         {
-            foreach (etapa et in listaEtapas)
+            string[] ln = line.Split(" ");
+            for (int i = 0; i < listaEtapas.Count; i++)
             {
-                if(et.pontos[0] == dadoLinhas[1] && et.pontos[1] == dadoLinhas[2])
+                for (int b = 0; b < listaConcorrentesValidos.Count; b++)
                 {
-                    et.tempoMedio += float.Parse(dadoLinhas[3]);
-                }            
-            }            
+                    if(ln[0] == listaConcorrentesValidos[b].numero.ToString())
+                    {
+                        if(listaEtapas[i].pontos[0] == ln[1] && listaEtapas[i].pontos[1] == ln[2])
+                        {
+                            listaEtapas[i].tempoMedio += float.Parse(ln[3]);
+                        }
+                    }
+                }
+                
+            }
         }
 
         Dictionary<int,etapa> infoEtapa = new Dictionary<int,etapa>();
@@ -230,34 +305,65 @@ class prova
             if(conc.desclassificado == false)
             {
                 counter++;
-                listaConcorrentesValidos.Add(conc);
             }
         }
         Console.WriteLine("Número de concorrentes com provas válidas: " + counter.ToString());
         return counter;
     }
-    void Tabela()
+    public void Tabela()
+    {
+        registrarPodio();
+        Console.WriteLine(" _______________________________________________________________________________________________________________________________________________________________________________________");
+        Console.WriteLine("|" + "\tPosição\t\t" + "|" + "\tNúmero\t\t" + "|" + "\tNome\t\t" + "|" + "\tCarro\t\t" + "|" + "\tTempo da Prova\t\t" + "|" + "\tDi. Ant.\t\t" + "|" + "\tDi.Ldr.\t\t"+"|");
+        Console.WriteLine(" ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        for(int i = 0; i < listaConcorrentes.Count;i++)
         {
+            if(i < podio.Count)
+            {
+                if(i != 0)
+                {
+                    Console.WriteLine("|\t"+"{0}"+"\t\t|\t" + "{1}"+"\t\t|\t" + "{2}"+"\t\t|\t" + "{3}"+"\t\t|\t" + "{4}"+"\t\t\t|\t" + "{5}"+"\t\t\t|\t" + "{6}"+"\t\t|\t",podio[i].pos,podio[i].numero,podio[i].nome,podio[i].carro,podio[i].tempoDeProva,MathF.Abs(podio[i].tempoDeProva-podio[i-1].tempoDeProva),MathF.Abs(podio[i].tempoDeProva-podio[0].tempoDeProva));
+                    Console.WriteLine(" ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
-            // VAI TER QUE SER UM FOR OU DO WHILE 
-
-            /*  
-             *  
-             Console.WriteLine(" _____________________________________________________________________________________________________________");
-             Console.WriteLine("|    Posição     |" + "    Número    | " + "    Nome      |" + "    Carro    |" + "  Tempo da Prova   |" + "   Di. Ant.   |" + "  Di.Ldr.   |");
-
-             for(int i = 0; i <= concorrents.Length() / numConcorrentes / listaConcorrentesOrdenada.count; i++){
-
-                Console.WriteLine("|      i+1      | " + "listaConcorrentesOrdenada[i].num | " + "listaConcorrentesOrdenada[i].nome| " + "listaConcorrentesOrdenada[i].carro   | " + "listaConcorrentesOrdenada[i].tempoProva| " + "listaConcorrentesOrdenada[i-1].tempoProva - listaConcorrentesOrdenada[i].tempoProva   | " + "listaConcorrentesOrdenada[0].tempoProva - listaConcorrentesOrdenada[i].tempoProva   |");
-                Console.WriteLine(" _____________________________________________________________________________________________________________");
+                }else
+                {
+                    Console.WriteLine("|\t"+"{0}"+"\t\t|\t" + "{1}"+"\t\t|\t" + "{2}"+"\t\t|\t" + "{3}"+"\t\t|\t" + "{4}"+"\t\t\t|\t" + "{5}"+"\t\t\t|\t" + "{6}"+"\t\t|\t",podio[i].pos,podio[i].numero,podio[i].nome,podio[i].carro,podio[i].tempoDeProva,podio[i].tempoDeProva,podio[i].tempoDeProva);
+                    Console.WriteLine(" ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                }
             }
-             */
-            Console.WriteLine(" _____________________________________________________________________________________________________________");
-            Console.WriteLine("|    Posição     |" + "    Número    | " + "    Nome      |" + "    Carro    |" + "  Tempo da Prova   |" + "   Di. Ant.   |" + "  Di.Ldr.   |");
-            Console.WriteLine(" _____________________________________________________________________________________________________________");
-            Console.WriteLine("|        1       | " + "    x        | " + "    Nome      | " + "    Carro   | " + "       xy:zw      | " + "      x.x    | " + "    y.y    |");
-            Console.WriteLine(" _____________________________________________________________________________________________________________");
-            Console.WriteLine("|        2       | " + "    x        | " + "    Nome      | " + "    Carro   | " + "       xy:zw      | " + "      x.x    | " + "    y.y    |");
-            Console.WriteLine(" _____________________________________________________________________________________________________________");
-        }  
+        }
+        for(int i = 0; i < listaConcorrentes.Count;i++)
+        {
+            if(listaConcorrentes[i].desclassificado)
+            {
+                Console.WriteLine("|\t"+"   "+"\t\t|\t" + "{0}" + "\t\t|\t" + "{1}" +"\t\t|\t" + "{2}" + "\t\t|\t" + "   " + "\t\t\t|\t" + "   "+"\t\t\t|\t" + "   "+"\t\t|\t",listaConcorrentes[i].numero.ToString(),listaConcorrentes[i].nome,listaConcorrentes[i].carro);
+                Console.WriteLine(" ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            }
+        } 
+
+    }
+        // {
+
+        //     // VAI TER QUE SER UM FOR OU DO WHILE 
+
+        //     /*  
+        //      *  
+        //      Console.WriteLine(" _____________________________________________________________________________________________________________");
+        //      Console.WriteLine("|    Posição     |" + "    Número    | " + "    Nome      |" + "    Carro    |" + "  Tempo da Prova   |" + "   Di. Ant.   |" + "  Di.Ldr.   |");
+
+        //      for(int i = 0; i <= concorrents.Length() / numConcorrentes / listaConcorrentesOrdenada.count; i++){
+
+        //         Console.WriteLine("|      i+1      | " + "listaConcorrentesOrdenada[i].num | " + "listaConcorrentesOrdenada[i].nome| " + "listaConcorrentesOrdenada[i].carro   | " + "listaConcorrentesOrdenada[i].tempoProva| " + "listaConcorrentesOrdenada[i-1].tempoProva - listaConcorrentesOrdenada[i].tempoProva   | " + "listaConcorrentesOrdenada[0].tempoProva - listaConcorrentesOrdenada[i].tempoProva   |");
+        //         Console.WriteLine(" _____________________________________________________________________________________________________________");
+        //     }
+        //      */
+        //     // Console.WriteLine(" _____________________________________________________________________________________________________________");
+        //     // Console.WriteLine("|    Posição     |" + "    Número    | " + "    Nome      |" + "    Carro    |" + "  Tempo da Prova   |" + "   Di. Ant.   |" + "  Di.Ldr.   |");
+        //     // Console.WriteLine(" _____________________________________________________________________________________________________________");
+        //     // Console.WriteLine("|        1       | " + "    x        | " + "    Nome      | " + "    Carro   | " + "       xy:zw      | " + "      x.x    | " + "    y.y    |");
+        //     // Console.WriteLine(" _____________________________________________________________________________________________________________");
+        //     // Console.WriteLine("|        2       | " + "    x        | " + "    Nome      | " + "    Carro   | " + "       xy:zw      | " + "      x.x    | " + "    y.y    |");
+        //     // Console.WriteLine(" _____________________________________________________________________________________________________________");
+        // }  
 }
