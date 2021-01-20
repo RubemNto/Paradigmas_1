@@ -12,7 +12,18 @@ namespace projetopratico
         {
             prova p1 = new prova();
             int input = ' ';
-            p1.lerFicheiros(@"C:\Users\rubem\OneDrive\Documentos\codes\C#\Paradigmas_1\dadosDaProva.txt",@"C:\Users\rubem\OneDrive\Documentos\codes\C#\Paradigmas_1\dadosEtapas.txt",@"C:\Users\rubem\OneDrive\Documentos\codes\C#\Paradigmas_1\dadosConcorrentes.txt");
+            string addressDadoProva;
+            string addressDadoEtapa;
+            string addressDadoConcorrente;
+
+            Console.WriteLine("Endereço dos dados da prova");
+            addressDadoProva = Console.ReadLine();
+            Console.WriteLine("Endereço dos dados das Etapas");
+            addressDadoEtapa = Console.ReadLine();
+            Console.WriteLine("Endereço dos dados dos concorrentes");
+            addressDadoConcorrente = Console.ReadLine();
+
+            p1.lerFicheiros(addressDadoProva,addressDadoEtapa,addressDadoConcorrente);
             do{
             Console.WriteLine("1 - Mostrar Número dos concorrentes");
             Console.WriteLine("2 - Mostrar Número de concorrentes com provas válidas");
